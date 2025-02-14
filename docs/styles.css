@@ -3,107 +3,106 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-nav {
-    background-color: #333;
-    color: white;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 15px 0;
-    display: block;
-}
-
-.hero {
-    background-image: url('https://via.placeholder.com/1920x1080');
+    background-image: url('your-background-image.jpg');
     background-size: cover;
     background-position: center;
-    height: 500px;
+    display: grid;
+    grid-template-columns: auto 200px;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* 顶部区域样式 */
+.top-section {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.profile {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: white;
 }
 
-.hero-content {
-    text-align: center;
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
 }
 
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
+.social-links a {
+    margin-left: 10px;
 }
 
-.hero p {
-    font-size: 24px;
-    margin-bottom: 30px;
+.social-links img {
+    width: 30px;
+    height: 30px;
 }
 
-.btn {
-    background-color: #ff6600;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+/* 中间精选区域样式 */
+.featured-section {
+    padding: 20px;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 20px;
+.media-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-.about,
-.portfolio,
-.contact {
-    text-align: center;
-}
-
-.portfolio-item {
-    margin: 20px;
-    display: inline-block;
-}
-
-.portfolio-item img {
-    width: 300px;
-    height: 200px;
+.image-gallery img {
+    width: 200px;
+    height: 150px;
     object-fit: cover;
-    border-radius: 5px;
+    margin: 10px;
 }
 
-.contact form input,
-.contact form textarea {
+.video-gallery video {
+    width: 300px;
+    margin: 10px;
+}
+
+/* 右侧个人收藏网址区域样式 */
+.favorite-links {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.favorite-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.favorite-links li {
+    margin-bottom: 10px;
+}
+
+/* 底部留言板区域样式 */
+.message-board {
+    grid-column: 1 / -1;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+#message-form input,
+#message-form textarea {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.contact form input[type="submit"] {
-    background-color: #ff6600;
+#message-form input[type="submit"] {
+    background-color: #007BFF;
     color: white;
     cursor: pointer;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
+#messages {
+    margin-top: 20px;
 }
