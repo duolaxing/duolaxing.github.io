@@ -1,18 +1,32 @@
-// 留言板提交功能
-const messageForm = document.getElementById('message-form');
-const messagesDiv = document.getElementById('messages');
+// 轮播图逻辑
+let index = 0;
+function slideShow() {
+    const carousel = document.querySelector('.carousel-inner');
+    const totalImages = document.querySelectorAll('.carousel-inner img').length;
+    index = (index + 1) % totalImages;
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+}
+setInterval(slideShow, 3000);  // 每 3 秒轮播一张图
 
-messageForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+// 留言板逻辑
+document.getElementById('message-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+    let messageText = document.getElementById('message').value;
+    if (messageText.trim() === "") return;
 
-    const newMessage = document.createElement('div');
-    newMessage.innerHTML = `<p><strong>${name} (${email})</strong>: ${message}</p>`;
-    messagesDiv.appendChild(newMessage);
+    let messageContainer = document.getElementById('messages');
 
-    // 清空表单
-    messageForm.reset();
+    let messageDiv = document.createElement('div');
+    messageDiv.className = 'message';
+    messageDiv.textContent = messageText;
+
+    // 添加留言时间
+    let timeStamp = document.createElement('small');
+    timeStamp.textContent = new Date().toLocaleString();
+    messageDiv.appendChild(timeStamp);
+
+    messageContainer.appendChild(messageDiv);
+
+    document.getElementById('message').value = ''; // 清空输入框
 });
