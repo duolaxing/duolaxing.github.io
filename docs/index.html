@@ -9,61 +9,63 @@
 </head>
 
 <body>
-    <!-- 导航栏 -->
-    <nav>
-        <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">关于我</a></li>
-            <li><a href="#">作品展示</a></li>
-            <li><a href="#">联系我</a></li>
-        </ul>
-    </nav>
-    <!-- 英雄区域 -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1>你好，我是[你的名字]</h1>
-            <p>[你的职业或简介]</p>
-            <a href="#" class="btn">了解更多</a>
+    <!-- 顶部区域，包含头像、名称和简介 -->
+    <header class="top-section">
+        <div class="profile">
+            <img src="your-profile-image.jpg" alt="个人头像" class="profile-image">
+            <div class="profile-info">
+                <h1>你的名字</h1>
+                <p>个人简介：这里可以简要介绍一下自己，比如职业、兴趣等。</p>
+            </div>
+        </div>
+        <!-- 社交账户链接 -->
+        <div class="social-links">
+            <a href="https://www.bilibili.com" target="_blank"><img src="bilibili-icon.png" alt="哔哩哔哩"></a>
+            <a href="https://www.douyin.com" target="_blank"><img src="douyin-icon.png" alt="抖音"></a>
         </div>
     </header>
-    <!-- 关于我区域 -->
-    <section class="about">
-        <div class="container">
-            <h2>关于我</h2>
-            <p>这里可以详细介绍你自己，比如你的兴趣爱好、工作经历、学习背景等。</p>
-        </div>
-    </section>
-    <!-- 作品展示区域 -->
-    <section class="portfolio">
-        <div class="container">
-            <h2>作品展示</h2>
-            <div class="portfolio-item">
-                <img src="https://via.placeholder.com/300x200" alt="作品 1">
-                <h3>作品 1 标题</h3>
-                <p>作品 1 的简要描述。</p>
+
+    <!-- 中间精选区域，包含图片集和视频集 -->
+    <section class="featured-section">
+        <h2>精选</h2>
+        <div class="media-container">
+            <!-- 图片集 -->
+            <div class="image-gallery">
+                <img src="example-image1.jpg" alt="示例图片 1">
+                <img src="example-image2.jpg" alt="示例图片 2">
+                <!-- 可以添加更多图片 -->
             </div>
-            <div class="portfolio-item">
-                <img src="https://via.placeholder.com/300x200" alt="作品 2">
-                <h3>作品 2 标题</h3>
-                <p>作品 2 的简要描述。</p>
+            <!-- 视频集 -->
+            <div class="video-gallery">
+                <video controls>
+                    <source src="example-video.mp4" type="video/mp4">
+                    你的浏览器不支持播放此视频。
+                </video>
+                <!-- 可以添加更多视频 -->
             </div>
         </div>
     </section>
-    <!-- 联系我区域 -->
-    <section class="contact">
-        <div class="container">
-            <h2>联系我</h2>
-            <form>
-                <input type="text" placeholder="你的姓名">
-                <input type="email" placeholder="你的邮箱">
-                <textarea placeholder="你的留言"></textarea>
-                <input type="submit" value="发送">
-            </form>
-        </div>
-    </section>
-    <!-- 页脚 -->
-    <footer>
-        <p>&copy; 2025 [你的名字]. 保留所有权利。</p>
+
+    <!-- 右侧个人收藏网址区域 -->
+    <aside class="favorite-links">
+        <h2>个人收藏</h2>
+        <ul>
+            <li><a href="https://example.com" target="_blank">示例网站 1</a></li>
+            <li><a href="https://another-example.com" target="_blank">示例网站 2</a></li>
+            <!-- 可以添加更多收藏网址 -->
+        </ul>
+    </aside>
+
+    <!-- 底部留言板区域 -->
+    <footer class="message-board">
+        <h2>留言板</h2>
+        <form id="message-form">
+            <input type="text" id="name" placeholder="你的姓名" required>
+            <input type="email" id="email" placeholder="你的邮箱" required>
+            <textarea id="message" placeholder="你的留言" required></textarea>
+            <input type="submit" value="提交留言">
+        </form>
+        <div id="messages"></div>
     </footer>
 
     <script src="script.js"></script>
