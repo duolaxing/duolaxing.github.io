@@ -1,66 +1,72 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The home of Duolaxing</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<body>
-    <div class="background"></div>
 
-    <!-- 头部 -->
-    <header>
-        <img src="img/avatar.jpg" alt="头像" class="avatar">
-        <h1>哆啦星</h1>
+<body>
+    <!-- 顶部区域，包含名称、简介、邮箱和社交账户 -->
+    <header class="top-section">
+        <div class="profile-info">
+            <h1>你的名字</h1>
+            <p>个人简介：这里是哆啦星的家。</p>
+            <p class="email-container">
+                联系邮箱：<span id="email-text">duolaxing.com</span>
+                <button id="copy-email" class="copy-button" onclick="copyEmail()">
+                    <i class="fa fa-copy"></i> 复制
+                </button>
+            </p>
+            <!-- 社交账户链接 -->
+            <div class="social-links">
+                <p>社交账户</p>
+                <a href="https://space.bilibili.com/599421238?spm_id_from=333.337.0.0" class="social-link" target="_blank">哔哩哔哩</a>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAAwKKmFhNbniV07Ub87FGsfNv7YMlGjSiHbi76AyEnfIjP55abZQDQTCwaZ7dVfVgS?from_tab_name=main&showTab=post" target="_blank">抖音</a>
+            </div>
+        </div>
     </header>
 
-    <!-- 个人简介 -->
-    <section class="bio">
-        <p>个人简介：这里是哆啦星的家。</p>
-        <p>邮箱：your@email.com</p>
-    </section>
-
-    <!-- 社交账户 -->
-    <section class="social-links">
-        <p>社交账户：</p>
-        <a href="https://space.bilibili.com/599421238?spm_id_from=333.337.0.0" class="social-link">哔哩哔哩</a>
-        <a href="https://www.douyin.com/user/MS4wLjABAAAAwKKmFhNbniV07Ub87FGsfNv7YMlGjSiHbi76AyEnfIjP55abZQDQTCwaZ7dVfVgS?from_tab_name=main&showTab=post" class="social-link">抖音</a>
-    </section>
-
-    <!-- 精选轮播 -->
-    <section class="gallery">
+    <!-- 中间精选区域，包含图片集 -->
+    <section class="featured-section">
         <h2>精选</h2>
-        <div class="carousel">
-            <div class="carousel-inner">
-                <img src="img/image1.jpg" alt="精选图片1">
-                <img src="img/image2.jpg" alt="精选图片2">
-                <img src="img/image3.jpg" alt="精选图片3">
-                <img src="img/image4.jpg" alt="精选图片4">
-                <img src="img/image5.jpg" alt="精选图片5">
-                <img src="img/image6.jpg" alt="精选图片6">
-            </div>
+        <div class="image-gallery">
+            <img src="img/image1.jpg" alt="示例图片 1" onclick="openModal(0)">
+            <img src="img/image2.jpg" alt="示例图片 2" onclick="openModal(1)">
+            <img src="img/image3.jpg" alt="示例图片 3" onclick="openModal(2)">
+            <img src="img/image4.jpg" alt="示例图片 4" onclick="openModal(3)">
+            <img src="img/image5.jpg" alt="示例图片 5" onclick="openModal(4)">
+            <img src="img/image6.jpg" alt="示例图片 6" onclick="openModal(5)">
         </div>
     </section>
 
-    <!-- 个人收藏（最右侧） -->
-    <aside class="favorites">
+    <!-- 右侧个人收藏网址区域 -->
+    <aside class="favorite-links">
         <h2>个人收藏</h2>
         <ul>
-            <li><a href="https://www.dora-video.cn/" class="favorite-link">哆啦新番社</a></li>
+            <li><a href="https://www.dora-video.cn/" target="_blank">哆啦新番社</a></li>
         </ul>
     </aside>
 
-    <!-- 留言板 -->
-    <section class="message-board">
-        <h2>留言板</h2>
-        <form id="message-form">
-            <textarea id="message" placeholder="留下你的留言"></textarea>
-            <button type="submit">提交</button>
-        </form>
-        <div id="messages" class="message-container"></div>
-    </section>
+    <!-- 图片查看模态框 -->
+    <div id="image-modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <a class="prev" onclick="changeImage(-1)">&#10094;</a>
+        <a class="next" onclick="changeImage(1)">&#10095;</a>
+        <img class="modal-content" id="modal-image">
+        <a id="download-link" download>
+            <button class="download-button">
+                <i class="fa fa-download"></i> 下载图片
+            </button>
+        </a>
+        <button class="zoom-button zoom-in" onclick="zoomImage(1.1)"><i class="fa fa-plus"></i></button>
+        <button class="zoom-button zoom-out" onclick="zoomImage(0.9)"><i class="fa fa-minus"></i></button>
+    </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
