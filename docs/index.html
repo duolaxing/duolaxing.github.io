@@ -1,74 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>The home of Duolaxing</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <!-- 顶部区域，包含头像、名称和简介 -->
-    <header class="top-section">
-        <div class="profile">
-            <img src="your-profile-image.jpg" alt="个人头像" class="profile-image">
-            <div class="profile-info">
-                <h1>你的名字</h1>
-                <p>个人简介：这里可以简要介绍一下自己，比如职业、兴趣等。</p>
-            </div>
-        </div>
-        <!-- 社交账户链接 -->
-        <div class="social-links">
-            <a href="https://www.bilibili.com" target="_blank"><img src="bilibili-icon.png" alt="哔哩哔哩"></a>
-            <a href="https://www.douyin.com" target="_blank"><img src="douyin-icon.png" alt="抖音"></a>
-        </div>
+    <div class="background"></div>
+
+    <!-- 头部 -->
+    <header>
+        <img src="img/avatar.jpg" alt="头像" class="avatar">
+        <h1>哆啦星</h1>
     </header>
 
-    <!-- 中间精选区域，包含图片集和视频集 -->
-    <section class="featured-section">
+    <!-- 个人简介 -->
+    <section class="bio">
+        <p>个人简介：这里是哆啦星的家。</p>
+        <p>邮箱：your@email.com</p>
+    </section>
+
+    <!-- 社交账户 -->
+    <section class="social-links">
+        <p>社交账户：</p>
+        <a href="https://space.bilibili.com/599421238?spm_id_from=333.337.0.0" class="social-link">哔哩哔哩</a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAwKKmFhNbniV07Ub87FGsfNv7YMlGjSiHbi76AyEnfIjP55abZQDQTCwaZ7dVfVgS?from_tab_name=main&showTab=post" class="social-link">抖音</a>
+    </section>
+
+    <!-- 精选轮播 -->
+    <section class="gallery">
         <h2>精选</h2>
-        <div class="media-container">
-            <!-- 图片集 -->
-            <div class="image-gallery">
-                <img src="example-image1.jpg" alt="示例图片 1">
-                <img src="example-image2.jpg" alt="示例图片 2">
-                <!-- 可以添加更多图片 -->
-            </div>
-            <!-- 视频集 -->
-            <div class="video-gallery">
-                <video controls>
-                    <source src="example-video.mp4" type="video/mp4">
-                    你的浏览器不支持播放此视频。
-                </video>
-                <!-- 可以添加更多视频 -->
+        <div class="carousel">
+            <div class="carousel-inner">
+                <img src="img/image1.jpg" alt="精选图片1">
+                <img src="img/image2.jpg" alt="精选图片2">
+                <img src="img/image3.jpg" alt="精选图片3">
+                <img src="img/image4.jpg" alt="精选图片4">
+                <img src="img/image5.jpg" alt="精选图片5">
+                <img src="img/image6.jpg" alt="精选图片6">
             </div>
         </div>
     </section>
 
-    <!-- 右侧个人收藏网址区域 -->
-    <aside class="favorite-links">
+    <!-- 个人收藏（位于网页最右侧） -->
+    <aside class="favorites">
         <h2>个人收藏</h2>
         <ul>
-            <li><a href="https://example.com" target="_blank">示例网站 1</a></li>
-            <li><a href="https://another-example.com" target="_blank">示例网站 2</a></li>
-            <!-- 可以添加更多收藏网址 -->
+            <li><a href="https://www.dora-video.cn/" class="favorite-link">哆啦新番社</a></li>
         </ul>
     </aside>
 
-    <!-- 底部留言板区域 -->
-    <footer class="message-board">
+    <!-- 留言板 -->
+    <section class="message-board">
         <h2>留言板</h2>
         <form id="message-form">
-            <input type="text" id="name" placeholder="你的姓名" required>
-            <input type="email" id="email" placeholder="你的邮箱" required>
-            <textarea id="message" placeholder="你的留言" required></textarea>
-            <input type="submit" value="提交留言">
+            <textarea id="message" placeholder="留下你的留言"></textarea>
+            <button type="submit">提交</button>
         </form>
-        <div id="messages"></div>
-    </footer>
+        <div id="messages" class="message-container"></div>
+    </section>
 
     <script src="script.js"></script>
 </body>
-
 </html>
