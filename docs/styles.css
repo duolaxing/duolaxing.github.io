@@ -1,4 +1,4 @@
-/* 全局样式 */
+/* 背景图铺满 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +8,7 @@ body {
     background-size: cover;
 }
 
-/* 头部样式 */
+/* 头部 */
 header {
     display: flex;
     align-items: center;
@@ -18,33 +18,26 @@ header {
     color: white;
 }
 
-/* 头像样式 */
+/* 头像和名字并列，缩小头像 */
 .avatar {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
-/* 个人简介、社交账户、精选、留言板样式 */
-.bio, .social-links, .gallery, .message-board {
-    background: rgba(255, 255, 255, 0.8);
-    margin: 20px auto;
+/* 个人收藏固定在网页最右侧 */
+.favorites {
+    position: fixed;
+    right: 0;
+    top: 100px;
+    background: rgba(255, 255, 255, 0.9);
     padding: 15px;
-    width: 80%;
     border-radius: 10px;
+    width: 200px;
 }
 
-/* 社交链接样式 */
-.social-links a {
-    display: inline-block;
-    margin: 5px 10px;
-    text-decoration: none;
-    color: blue;
-    font-weight: bold;
-}
-
-/* 轮播图样式 */
+/* 轮播图 */
 .carousel {
     position: relative;
     overflow: hidden;
@@ -55,45 +48,17 @@ header {
 
 .carousel-inner {
     display: flex;
-    width: 600%;
     transition: transform 0.5s ease-in-out;
+    width: 600%;
 }
 
 .carousel-inner img {
     width: 100%;
-    flex-shrink: 0;
+    height: 300px;
+    object-fit: cover; /* 确保裁剪大小一致 */
 }
 
-/* 个人收藏（固定在页面右侧） */
-.favorites {
-    position: fixed;
-    right: 10px;
-    top: 100px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 10px;
-    width: 180px;
-}
-
-.favorites ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.favorites a {
-    text-decoration: none;
-    color: blue;
-    font-weight: bold;
-}
-
-/* 留言板 */
-.message-board textarea {
-    width: 80%;
-    height: 80px;
-    margin: 10px 0;
-}
-
-/* 留言展示区域 */
+/* 留言展示区域紧凑排列 */
 .message-container {
     display: flex;
     flex-wrap: wrap;
@@ -103,7 +68,7 @@ header {
     width: 80%;
 }
 
-/* 单条留言样式 */
+/* 单条留言 */
 .message-container .message {
     border: 2px solid #ddd;
     padding: 10px;
@@ -112,6 +77,7 @@ header {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
     display: inline-block;
+    max-width: 300px; /* 限制最大宽度 */
 }
 
 /* 留言时间 */
