@@ -1,32 +1,82 @@
-// 轮播图逻辑
-let index = 0;
-function slideShow() {
-    const carousel = document.querySelector('.carousel-inner');
-    const totalImages = document.querySelectorAll('.carousel-inner img').length;
-    index = (index + 1) % totalImages;
-    carousel.style.transform = `translateX(-${index * 100}%)`;
+let currentImageIndex = 0;
+const images = [
+    "img/image1.jpg",
+    "img/image2.jpg",
+    "img/image3.jpg",
+    "img/image4.jpg",
+    "img/image5.jpg",
+    "img/image6.jpg"
+];
+let scale = 1;
+
+// 打开模态框
+function openModal(index) {
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const downloadLink = document.getElementById('download-link');
+
+    currentImageIndex = index;
+    modal.classList.add('show');
+    modalImage.src = images[currentImageIndex];
+    downloadLink.href = images[currentImageIndex];
+    scale = 1;
+    modalImage.style.transform = `scale(1)`;
+    setTimeout(() => {
+        modalImage.classList.add('slide-in');
+    }, 0);
 }
-setInterval(slideShow, 3000);  // 每 3 秒轮播一张图
 
-// 留言板逻辑
-document.getElementById('message-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+// 关闭模态框
+function closeModal() {
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    modalImage.classList.remove('slide-in');
+    setTimeout(() => {
+        modal.classList.remove('show');
+    }, 300);
+}
 
-    let messageText = document.getElementById('message').value;
-    if (messageText.trim() === "") return;
+// 切换图片
+function changeImage(offset) {
+    const modalImage = document.getElementById('modal-image');
+    const downloadLink = document.getElementById('download-link');
+    const oldIndex = currentImageIndex;
+    currentImageIndex = (currentImageIndex + offset + images.length) % images.length;
 
-    let messageContainer = document.getElementById('messages');
+    let outAnimation, inAnimation;
+    if (offset > 0) {
+        outAnimation = 'slideLeft';
+        inAnimation = 'slideInRight';
+    } else {
+        outAnimation = 'slideRight';
+        inAnimation = 'slideInLeft';
+    }
 
-    let messageDiv = document.createElement('div');
-    messageDiv.className = 'message';
-    messageDiv.textContent = messageText;
+    modalImage.style.animation = `${outAnimation} 0.3s ease-in-out forwards`;
+    setTimeout(() => {
+        modalImage.src = images[currentImageIndex];
+        downloadLink.href = images[currentImageIndex];
+        scale = 1;
+        modalImage.style.transform = `scale(1)`;
+        modalImage.style.animation = `${inAnimation} 0.3s ease-in-out forwards`;
+    }, 300);
+}
 
-    // 添加留言时间
-    let timeStamp = document.createElement('small');
-    timeStamp.textContent = new Date().toLocaleString();
-    messageDiv.appendChild(timeStamp);
+// 复制邮箱功能
+function copyEmail() {
+    const emailText = document.getElementById('email-text').textContent;
+    const tempInput = document.createElement('input');
+    tempInput.value = emailText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    alert('邮箱已复制到剪贴板');
+}
 
-    messageContainer.appendChild(messageDiv);
-
-    document.getElementById('message').value = ''; // 清空输入框
-});
+// 缩放图片
+function zoomImage(factor) {
+    const modalImage = document.getElementById('modal-image');
+    scale *= factor;
+    modalImage.style.transform = `scale(${scale})`;
+}
