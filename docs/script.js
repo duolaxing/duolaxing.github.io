@@ -1,6 +1,6 @@
 // 当前显示图片的索引
 let currentImageIndex = 0;
-// 图片数组，存储所有图片的路径
+// 图片数组
 const images = [
     "img/image1.jpg",
     "img/image2.jpg",
@@ -9,127 +9,116 @@ const images = [
     "img/image5.jpg",
     "img/image6.jpg"
 ];
-// 图片缩放比例，初始为 1
+// 图片缩放比例
 let scale = 1;
 
-// 打开模态框函数
+// 触摸起始坐标
+let touchStartX = 0;
+let touchEndX = 0;
+
+// 获取模态框和相关元素
+const modal = document.getElementById('image-modal');
+const modalImage = document.getElementById('modal-image');
+const downloadLink = document.getElementById('download-link');
+
+// 打开模态框
 function openModal(index) {
-    const modal = document.getElementById('image-modal');
-    const modalImage = document.getElementById('modal-image');
-    const downloadLink = document.getElementById('download-link');
-
     currentImageIndex = index;
+    scale = 1;  // 重置缩放
     modal.classList.add('show');
-    modalImage.src = images[currentImageIndex];
-    downloadLink.href = images[currentImageIndex];
-    scale = 1;
-    modalImage.style.transform = `scale(${scale})`;
-    setTimeout(() => {
-        modalImage.classList.add('slide-in');
-    }, 0);
+    updateModalImage();
 }
 
-// 关闭模态框函数
+// 关闭模态框
 function closeModal() {
-    const modal = document.getElementById('image-modal');
-    const modalImage = document.getElementById('modal-image');
-    modalImage.classList.remove('slide-in');
-    setTimeout(() => {
-        modal.classList.remove('show');
-    }, 300);
+    modal.classList.remove('show');
+    scale = 1;  // 重置缩放
 }
 
-// 切换图片函数
-function changeImage(offset) {
-    const modalImage = document.getElementById('modal-image');
-    const downloadLink = document.getElementById('download-link');
-    currentImageIndex = (currentImageIndex + offset + images.length) % images.length;
-
-    let outAnimation, inAnimation;
-    if (offset > 0) {
-        outAnimation = 'slideLeft';
-        inAnimation = 'slideInRight';
+// 更新模态框图片（带动画）
+function updateModalImage(direction = "none") {
+    if (direction === "left") {
+        animateImage("slide-out-left", "slide-in-right");
+    } else if (direction === "right") {
+        animateImage("slide-out-right", "slide-in-left");
     } else {
-        outAnimation = 'slideRight';
-        inAnimation = 'slideInLeft';
-    }
-
-    modalImage.style.animation = '';
-    modalImage.style.animation = `${outAnimation} 0.3s ease-in-out forwards`;
-    setTimeout(() => {
         modalImage.src = images[currentImageIndex];
         downloadLink.href = images[currentImageIndex];
-        scale = 1;
+        // 修正语法错误
         modalImage.style.transform = `scale(${scale})`;
-        modalImage.style.animation = `${inAnimation} 0.3s ease-in-out forwards`;
-    }, 300);
+    }
 }
 
-// 复制邮箱功能函数
+// 切换图片（带动画）
+function changeImage(offset) {
+    const direction = offset > 0 ? "left" : "right";
+    currentImageIndex = (currentImageIndex + offset + images.length) % images.length;
+    scale = 1;  // 切换图片时重置缩放
+    updateModalImage(direction);
+}
+
+// 缩放图片
+function zoomImage(factor) {
+    scale *= factor;
+    scale = Math.max(0.5, Math.min(3, scale)); // 限制缩放范围
+    // 修正语法错误
+    modalImage.style.transform = `scale(${scale})`;
+}
+
+// 监听触摸事件，支持移动端左右滑动切换图片
+modalImage.addEventListener("touchstart", (event) => {
+    touchStartX = event.touches[0].clientX;
+});
+
+modalImage.addEventListener("touchend", (event) => {
+    touchEndX = event.changedTouches[0].clientX;
+    handleSwipe();
+});
+
+// 处理滑动事件
+function handleSwipe() {
+    const swipeThreshold = 50; // 触发滑动的最小距离
+    if (touchEndX < touchStartX - swipeThreshold) {
+        changeImage(1); // 向左滑动，下一张
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+        changeImage(-1); // 向右滑动，上一张
+    }
+}
+
+// 图片切换动画
+function animateImage(oldClass, newClass) {
+    modalImage.classList.add(oldClass);
+
+    setTimeout(() => {
+        modalImage.classList.remove(oldClass);
+        modalImage.src = images[currentImageIndex];
+        downloadLink.href = images[currentImageIndex];
+        modalImage.classList.add(newClass);
+    }, 300);
+
+    setTimeout(() => {
+        modalImage.classList.remove(newClass);
+    }, 600);
+}
+
+// 复制邮箱功能
 async function copyEmail() {
     const emailText = document.getElementById('email-text').textContent;
     try {
-        await navigator.clipboard.writeText(emailText);
-        alert('邮箱已复制到剪贴板');
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(emailText);
+            alert('邮箱已复制到剪贴板');
+        } else {
+            // 兼容旧浏览器的方法
+            const textArea = document.createElement('textarea');
+            textArea.value = emailText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('邮箱已复制到剪贴板');
+        }
     } catch (err) {
         console.error('复制邮箱失败:', err);
-        const tempInput = document.createElement('input');
-        tempInput.value = emailText;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
-        alert('邮箱已复制到剪贴板');
     }
 }
-
-// 缩放图片函数
-function zoomImage(factor) {
-    const modalImage = document.getElementById('modal-image');
-    if (!modalImage) {
-        console.error('无法找到模态框图片元素');
-        return;
-    }
-    scale *= factor;
-    scale = Math.max(0.1, Math.min(5, scale));
-    modalImage.style.transform = `scale(${scale})`;
-    console.log('Zoomed. New scale:', scale);
-}
-
-// 预留手机端手势操作支持函数
-function setupMobileGestures() {
-    const modal = document.getElementById('image-modal');
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    modal.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-    });
-
-    modal.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].clientX;
-        const deltaX = touchEndX - touchStartX;
-        if (deltaX > 50) {
-            changeImage(-1);
-        } else if (deltaX < -50) {
-            changeImage(1);
-        }
-    });
-}
-
-// 页面加载完成后执行的操作
-window.addEventListener('load', () => {
-    setupMobileGestures();
-    const zoomInButton = document.querySelector('.zoom-button.zoom-in');
-    const zoomOutButton = document.querySelector('.zoom-button.zoom-out');
-    if (zoomInButton) {
-        zoomInButton.addEventListener('click', () => zoomImage(1.1));
-    } else {
-        console.error('未找到放大按钮');
-    }
-    if (zoomOutButton) {
-        zoomOutButton.addEventListener('click', () => zoomImage(0.9));
-    } else {
-        console.error('未找到缩小按钮');
-    }
-});
