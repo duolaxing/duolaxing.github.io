@@ -313,6 +313,71 @@ body {
 }
 
 /* 图片切换动画 */
+/* 图片切换动画 */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 退出左侧 */
+.slide-out-left {
+    animation: slideOutLeft 0.3s ease forwards;
+}
+
+/* 进入右侧 */
+.slide-in-right {
+    animation: slideInRight 0.3s ease forwards;
+}
+
+/* 退出右侧 */
+.slide-out-right {
+    animation: slideOutRight 0.3s ease forwards;
+}
+
+/* 进入左侧 */
+.slide-in-left {
+    animation: slideInLeft 0.3s ease forwards;
+}
+
 @keyframes slideLeft {
     from {
         transform: translateX(0);
@@ -388,5 +453,14 @@ body {
     .download-button {
         padding: 10px 20px;
         font-size: 14px;
+    }
+
+    /* 让手机端复制按钮始终显示 */
+    .copy-button {
+        display: inline-block;
+    }
+
+    .email-container:hover .copy-button {
+        display: inline-block;
     }
 }
